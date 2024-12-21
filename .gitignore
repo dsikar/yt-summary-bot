@@ -1,6 +1,9 @@
 .aider*
 .env
 
+# .txt .md files
+outputs/
+
 # Python Files
 *.pyc
 *.pyo
@@ -61,3 +64,4 @@ Thumbs.db
 
 # Exception for README.md
 !README.md
+!requirements.txt
