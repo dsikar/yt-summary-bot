@@ -1,0 +1,63 @@
+.aider*
+.env
+
+# Python Files
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+__pycache__/
+.python-version
+.pylintrc
+.pytest_cache/
+.pytest_cache_v1/
+.mypy_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+.benchmarks/
+.pytype/
+mypy.ini
+mypy_report/
+.hypothesis/
+.pytest.ini
+.pytest_cache/
+
+# Environments
+env/
+venv/
+ENV/
+VENV/
+bin/
+include/
+lib/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+
+# Logs and Databases
+*.log
+*.sqlite
+*.sqlite3
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Misc
+*.bak
+*.tmp
+
+# Exclude all .txt and .md files
+*.txt
+*.md
+
+# Exception for README.md
+!README.md
