@@ -11,7 +11,6 @@ def read_markdown_files(video_id):
     summaries = {}
     patterns = [
         f"claude_{video_id}.md",
-        f"claude_transcript_{video_id}.md",
         f"gemini_{video_id}.md",
         f"grok_{video_id}.md",
         f"openai_{video_id}.md"

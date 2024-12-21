@@ -5,7 +5,6 @@ A collection of Python scripts for analyzing YouTube video transcripts using var
 ## Scripts
 
 - `scripts/claude_summary.py` - Generates video summaries using Claude 3 Opus
-- `scripts/claude_transcript.py` - Generates video summaries using Claude 3 Sonnet
 - `scripts/gemini_summary.py` - Generates video summaries using Gemini 1.5 Pro
 - `scripts/grok_summary.py` - Generates video summaries using Grok 2
 - `scripts/openai_summary.py` - Generates video summaries using GPT-4
@@ -24,7 +23,6 @@ A collection of Python scripts for analyzing YouTube video transcripts using var
 2. Generate summaries for a video:
    ```bash
    python scripts/claude_summary.py <video_id>
-   python scripts/claude_transcript.py <video_id>
    python scripts/gemini_summary.py <video_id>
    python scripts/grok_summary.py <video_id>
    python scripts/openai_summary.py <video_id>
