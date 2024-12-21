@@ -2,6 +2,7 @@ import sys
 from youtube_transcript_api import YouTubeTranscriptApi
 import os
 from openai import OpenAI
+from datetime import datetime
 
 def get_youtube_transcript(video_id):
     try:
@@ -32,6 +33,17 @@ def request_grok_summary(transcript):
         print(f"Request to Grok API failed: {e}")
         return None
 
+def save_output(video_id, content, success=True):
+    """Save the output to a markdown file"""
+    filename = f"{video_id}.md"
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    with open(filename, 'w', encoding='utf-8') as f:
+        if success:
+            f.write(content)
+        else:
+            f.write(f"# Summary Generation Failed\n\nTimestamp: {timestamp}\n\nError: {content}")
+
 def main():
     if len(sys.argv) != 2:
         print("Usage: python script.py <video_id>")
@@ -42,14 +54,20 @@ def main():
     # Fetch transcript
     transcript = get_youtube_transcript(video_id)
     if transcript is None:
+        error_message = "Failed to fetch YouTube transcript"
+        print(error_message)
+        save_output(video_id, error_message, success=False)
         sys.exit(1)
     
     # Request summary from Grok
     summary = request_grok_summary(transcript)
     if summary:
         print(summary)
+        save_output(video_id, summary)
     else:
-        print("Failed to get summary from Grok API.")
+        error_message = "Failed to get summary from Grok API."
+        print(error_message)
+        save_output(video_id, error_message, success=False)
 
 if __name__ == "__main__":
     main()
