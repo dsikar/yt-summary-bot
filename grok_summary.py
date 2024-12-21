@@ -43,9 +43,10 @@ def save_output(video_id, content, success=True):
     
     with open(filename, 'w', encoding='utf-8') as f:
         if success:
-            f.write(content)
+            header = f"# grok-2-1212_{video_id}\n\nTimestamp: {timestamp}\n\n---\n\n"
+            f.write(header + content)
         else:
-            f.write(f"# Summary Generation Failed\n\nTimestamp: {timestamp}\n\nError: {content}")
+            f.write(f"# Summary Generation Failed\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\nError: {content}")
 
 def main():
     if len(sys.argv) != 2:
