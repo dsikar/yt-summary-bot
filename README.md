@@ -43,15 +43,31 @@ Each script generates a markdown file with the following naming convention:
 
 The transcript is also saved as `<video_id>.txt`
 
+## Environment Setup
+
+1. Install pyenv if you haven't already:
+   ```bash
+   curl https://pyenv.run | bash
+   ```
+
+2. Create a Python virtual environment:
+   ```bash
+   pyenv install 3.9.5
+   pyenv virtualenv 3.9.5 transcript-env
+   ```
+
+3. Set up local Python version:
+   ```bash
+   echo "transcript-env" > .python-version
+   ```
+   This will automatically activate the environment when you enter the directory.
+
+4. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
 ## Requirements
 
-- Python 3.8+
-- youtube_transcript_api
-- anthropic
-- google.generativeai
-- openai
-
-Install dependencies:
-```bash
-pip install youtube_transcript_api anthropic google-generativeai openai
-```
+- Python 3.9.5
+- See requirements.txt for all dependencies
