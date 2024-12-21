@@ -1,7 +1,7 @@
 import sys
 from youtube_transcript_api import YouTubeTranscriptApi
-import requests
-import json
+import os
+from openai import OpenAI
 
 def get_youtube_transcript(video_id):
     try:
@@ -13,22 +13,22 @@ def get_youtube_transcript(video_id):
         return None
 
 def request_grok_summary(transcript):
-    api_key = 'XAI_API_KEY'
-    url = 'https://api.x.ai/v1'  # Replace this with the actual API endpoint
-    headers = {
-        'Authorization': f'Bearer {api_key}',
-        'Content-Type': 'application/json'
-    }
-    body = {
-        "prompt": f"Generate a markdown formatted digest of the following youtube transcript. Include a brief summary and a bulleted list of main points:\n\n{transcript}",
-        "max_tokens": 1000  # Adjust based on your needs
-    }
+    XAI_API_KEY = os.getenv("XAI_API_KEY")
+    client = OpenAI(
+        api_key=XAI_API_KEY,
+        base_url="https://api.x.ai/v1",
+    )
     
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(body))
-        response.raise_for_status()
-        return response.json()['content']
-    except requests.RequestException as e:
+        completion = client.chat.completions.create(
+            model="grok-2-1212",
+            messages=[
+                {"role": "system", "content": "You are a YouTube transcript analyst."},
+                {"role": "user", "content": f"Generate a markdown formatted digest of the following youtube transcript. Include a brief summary and a bulleted list of main points:\n\n{transcript}"},
+            ],
+        )
+        return completion.choices[0].message.content
+    except Exception as e:
         print(f"Request to Grok API failed: {e}")
         return None
 
