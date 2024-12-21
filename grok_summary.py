@@ -8,6 +8,9 @@ def get_youtube_transcript(video_id):
     try:
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
         full_transcript = ' '.join([t['text'] for t in transcript if t['text'].strip()])
+        # Save transcript to file
+        with open(f"{video_id}.txt", 'w', encoding='utf-8') as f:
+            f.write(full_transcript)
         return full_transcript
     except Exception as e:
         print(f"Error fetching transcript: {e}")
@@ -35,7 +38,7 @@ def request_grok_summary(transcript):
 
 def save_output(video_id, content, success=True):
     """Save the output to a markdown file"""
-    filename = f"{video_id}.md"
+    filename = f"grok_{video_id}.md"
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     with open(filename, 'w', encoding='utf-8') as f:
