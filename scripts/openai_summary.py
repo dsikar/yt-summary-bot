@@ -22,7 +22,7 @@ def request_openai_summary(transcript):
     
     try:
         completion = client.chat.completions.create(
-            model="gpt-4-0613",
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a YouTube transcript analyst."},
                 {"role": "user", "content": f"Generate a markdown formatted digest of the following youtube transcript. Include a brief summary and a bulleted list of main points:\n\n{transcript}"},
