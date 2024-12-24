@@ -4,6 +4,9 @@
 # .txt .md files
 outputs/
 
+# one off files or no longer used
+archive/
+
 # Python Files
 *.pyc
 *.pyo
