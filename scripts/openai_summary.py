@@ -13,7 +13,7 @@ def get_youtube_transcript(video_id):
             f.write(full_transcript)
         return full_transcript
     except Exception as e:
-        print(f"Error fetching transcript: {e}")
+        print(f"\nError fetching transcript: {e}")
         return None
 
 def request_openai_summary(transcript):
@@ -52,19 +52,27 @@ def main():
 
     video_id = sys.argv[1]
     
+    print(f"\nFetching transcript for video ID: {video_id}...")
     # Fetch transcript
     transcript = get_youtube_transcript(video_id)
+    if transcript:
+        print(f"\nTranscript retrieved successfully! Length: {len(transcript)} characters")
     if transcript is None:
         error_message = "Failed to fetch YouTube transcript"
         print(error_message)
         save_output(video_id, error_message, success=False)
         sys.exit(1)
     
+    print("\nRequesting summary from OpenAI GPT-4...")
     # Request summary from OpenAI
     summary = request_openai_summary(transcript)
     if summary:
+        print("\nSummary generated successfully!")
+        print("\n=== SUMMARY ===\n")
         print(summary)
+        print("\n=============\n")
         save_output(video_id, summary)
+        print(f"Summary saved to openai_{video_id}.md")
     else:
         error_message = "Failed to get summary from OpenAI API."
         print(error_message)
