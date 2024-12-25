@@ -41,7 +41,8 @@ def save_output(video_id, content, success=True):
     
     with open(filename, 'w', encoding='utf-8') as f:
         if success:
-            header = f"# gpt-4_{video_id}\n\nTimestamp: {timestamp}\n\n---\n\n"
+            word_count = len(content.split())
+            header = f"# gpt-4_{video_id}\n\nTimestamp: {timestamp}\n\nTranscript word count: {word_count}\n\n---\n\n"
             f.write(header + content)
         else:
             f.write(f"# Summary Generation Failed\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\nError: {content}")
@@ -70,9 +71,17 @@ def main():
         save_output(video_id, error_message, success=False)
         sys.exit(1)
     
+    # Get word counts
+    original_word_count = len(transcript.split())
+    
     print("\nRequesting summary from OpenAI GPT-4...")
     # Truncate transcript if needed
     truncated_transcript = truncate_to_words(transcript, args.max_words)
+    truncated_word_count = len(truncated_transcript.split())
+    
+    # Add truncation notice if needed
+    if truncated_word_count < original_word_count:
+        print(f"\nTranscript truncated from {original_word_count} to {truncated_word_count} words")
     
     # Request summary from OpenAI
     summary = request_openai_summary(truncated_transcript)
