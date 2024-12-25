@@ -6,6 +6,11 @@ import google.generativeai as genai
 from datetime import datetime
 
 def get_youtube_transcript(video_id):
+    # Check if transcript file already exists
+    if os.path.exists(f"{video_id}.txt"):
+        with open(f"{video_id}.txt", 'r', encoding='utf-8') as f:
+            return f.read()
+    
     try:
         transcript = YouTubeTranscriptApi.get_transcript(video_id)
         full_transcript = ' '.join([t['text'] for t in transcript if t['text'].strip()])
