@@ -41,6 +41,14 @@ Each script generates a markdown file with the following naming convention:
 
 The transcript is also saved as `<video_id>.txt`
 
+## Examples
+
+The `examples` folder contains a complete analysis of Marc Andreessen's interview with Bari Weiss discussing "The Techno-Optimist Manifesto" ([video link](https://www.youtube.com/watch?v=sgTeZXw-ytQ)). This includes the transcript, summaries from all AI models, and a comparative analysis.
+
+Note that due to rate limits, some models worked with truncated versions of the transcript:
+- Gemini summary: Based on first 7,000 words
+- OpenAI summary: Based on first 22,000 words
+
 ## Environment Setup
 
 1. Install pyenv if you haven't already:
