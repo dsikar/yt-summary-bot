@@ -28,10 +28,14 @@ A collection of Python scripts for analyzing YouTube video transcripts using var
    python scripts/openai_summary.py <video_id>
    ```
 
-3. Compare the generated summaries:
+3. Or use the orchestration script to run everything:
    ```bash
-   python scripts/compare_and_contrast.py <video_id>
+   python scripts/orchestrate_analysis.py <video_id>
    ```
+   This will:
+   - Run all summary scripts (Claude, Gemini, Grok, OpenAI)
+   - Wait for each to complete
+   - Run the comparison analysis if at least 2 summaries were generated successfully
 
 ## Output
 
