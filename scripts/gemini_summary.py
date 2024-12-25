@@ -1,4 +1,5 @@
 import sys
+import argparse
 from youtube_transcript_api import YouTubeTranscriptApi
 import os
 import google.generativeai as genai
@@ -46,12 +47,18 @@ def save_output(video_id, content, success=True):
         else:
             f.write(f"# Summary Generation Failed\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\nError: {content}")
 
-def main():
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <video_id>")
-        sys.exit(1)
+def truncate_to_words(text, max_words):
+    """Truncate text to specified number of words"""
+    words = text.split()
+    return ' '.join(words[:max_words])
 
-    video_id = sys.argv[1]
+def main():
+    parser = argparse.ArgumentParser(description='Generate YouTube video summary using Gemini')
+    parser.add_argument('video_id', help='YouTube video ID')
+    parser.add_argument('--max-words', type=int, default=7000, help='Maximum number of words to process (default: 7000)')
+    args = parser.parse_args()
+
+    video_id = args.video_id
     
     # Fetch transcript
     transcript = get_youtube_transcript(video_id)
@@ -61,8 +68,11 @@ def main():
         save_output(video_id, error_message, success=False)
         sys.exit(1)
     
+    # Truncate transcript if needed
+    truncated_transcript = truncate_to_words(transcript, args.max_words)
+    
     # Request summary from Gemini
-    summary = request_gemini_summary(transcript)
+    summary = request_gemini_summary(truncated_transcript)
     if summary:
         print(summary)
         save_output(video_id, summary)
