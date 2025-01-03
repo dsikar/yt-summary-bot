@@ -26,8 +26,9 @@ def get_youtube_transcript(video_id, language_code=None):
     language_code: ISO language code (e.g., 'en', 'es', 'fr')
     """
     # Check if cached transcript file already exists
-    if os.path.exists(f"{video_id}.txt") and not language_code:
-        with open(f"{video_id}.txt", 'r', encoding='utf-8') as f:
+    filename = f"{video_id}_{language_code}.txt" if language_code else f"{video_id}.txt"
+    if os.path.exists(filename):
+        with open(filename, 'r', encoding='utf-8') as f:
             return f.read()
     
     try:
@@ -51,10 +52,10 @@ def get_youtube_transcript(video_id, language_code=None):
         transcript_data = transcript.fetch()
         full_transcript = ' '.join([t['text'] for t in transcript_data if t['text'].strip()])
         
-        # Only cache default language transcripts
-        if not language_code:
-            with open(f"{video_id}.txt", 'w', encoding='utf-8') as f:
-                f.write(full_transcript)
+        # Cache transcript with language code in filename if specified
+        filename = f"{video_id}_{language_code}.txt" if language_code else f"{video_id}.txt"
+        with open(filename, 'w', encoding='utf-8') as f:
+            f.write(full_transcript)
         
         return full_transcript
     except Exception as e:
