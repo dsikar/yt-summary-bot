@@ -38,11 +38,11 @@ def get_youtube_transcript(video_id, source_lang=None, target_lang=None):
     try:
         transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
         
-        if language_code:
+        if source_lang:
             try:
-                transcript = transcript_list.find_transcript([language_code])
+                transcript = transcript_list.find_transcript([source_lang])
             except:
-                print(f"\nRequested language '{language_code}' not found.")
+                print(f"\nRequested language '{source_lang}' not found.")
                 print("Available languages:")
                 list_available_transcripts(video_id)
                 return None
@@ -57,7 +57,7 @@ def get_youtube_transcript(video_id, source_lang=None, target_lang=None):
         full_transcript = ' '.join([t['text'] for t in transcript_data if t['text'].strip()])
         
         # Cache transcript with language code in filename if specified
-        filename = f"{video_id}_{language_code}.txt" if language_code else f"{video_id}.txt"
+        filename = f"{video_id}_{source_lang}.txt" if source_lang else f"{video_id}.txt"
         with open(filename, 'w', encoding='utf-8') as f:
             f.write(full_transcript)
         
@@ -124,7 +124,7 @@ def main():
     list_available_transcripts(video_id)
     
     # Fetch transcript in specified language
-    transcript = get_youtube_transcript(video_id, language_code)
+    transcript = get_youtube_transcript(video_id, source_lang, target_lang)
     if transcript is None:
         error_message = "Failed to fetch YouTube transcript"
         print(error_message)
@@ -132,7 +132,7 @@ def main():
         sys.exit(1)
     
     # Request summary from Claude
-    summary = request_claude_summary(transcript, language_code)
+    summary = request_claude_summary(transcript, source_lang, target_lang)
     if summary:
         print(summary)
         save_output(video_id, summary)
