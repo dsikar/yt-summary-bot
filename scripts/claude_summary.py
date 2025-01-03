@@ -4,18 +4,58 @@ import os
 from anthropic import Anthropic
 from datetime import datetime
 
-def get_youtube_transcript(video_id):
-    # Check if transcript file already exists
-    if os.path.exists(f"{video_id}.txt"):
+def list_available_transcripts(video_id):
+    """List all available transcript languages for a video"""
+    try:
+        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        print("\nAvailable transcripts:")
+        print("=====================")
+        for transcript in transcript_list:
+            print(f"Language: {transcript.language} ({transcript.language_code})")
+            print(f"- Generated: {'Yes' if transcript.is_generated else 'No'}")
+            print(f"- Translation: {'Yes' if transcript.is_translatable else 'No'}")
+            print("---------------------")
+        return transcript_list
+    except Exception as e:
+        print(f"Error listing transcripts: {e}")
+        return None
+
+def get_youtube_transcript(video_id, language_code=None):
+    """
+    Get transcript for a video in specified language (or default if none specified)
+    language_code: ISO language code (e.g., 'en', 'es', 'fr')
+    """
+    # Check if cached transcript file already exists
+    if os.path.exists(f"{video_id}.txt") and not language_code:
         with open(f"{video_id}.txt", 'r', encoding='utf-8') as f:
             return f.read()
     
     try:
-        transcript = YouTubeTranscriptApi.get_transcript(video_id)
-        full_transcript = ' '.join([t['text'] for t in transcript if t['text'].strip()])
-        # Save transcript to file
-        with open(f"{video_id}.txt", 'w', encoding='utf-8') as f:
-            f.write(full_transcript)
+        transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+        
+        if language_code:
+            try:
+                transcript = transcript_list.find_transcript([language_code])
+            except:
+                print(f"\nRequested language '{language_code}' not found.")
+                print("Available languages:")
+                list_available_transcripts(video_id)
+                return None
+        else:
+            # Get default language transcript
+            transcript = transcript_list.find_transcript(['en'])  # Try English first
+            if not transcript:
+                transcript = transcript_list[0]  # Fall back to first available
+        
+        # Get the actual transcript
+        transcript_data = transcript.fetch()
+        full_transcript = ' '.join([t['text'] for t in transcript_data if t['text'].strip()])
+        
+        # Only cache default language transcripts
+        if not language_code:
+            with open(f"{video_id}.txt", 'w', encoding='utf-8') as f:
+                f.write(full_transcript)
+        
         return full_transcript
     except Exception as e:
         print(f"Error fetching transcript: {e}")
@@ -55,14 +95,19 @@ def save_output(video_id, content, success=True):
             f.write(f"# Summary Generation Failed\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\nError: {content}")
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <video_id>")
+    if len(sys.argv) < 2:
+        print("Usage: python script.py <video_id> [language_code]")
+        print("Example: python script.py dQw4w9WgXcQ es")
         sys.exit(1)
 
     video_id = sys.argv[1]
+    language_code = sys.argv[2] if len(sys.argv) > 2 else None
+
+    # Show available transcripts
+    list_available_transcripts(video_id)
     
-    # Fetch transcript
-    transcript = get_youtube_transcript(video_id)
+    # Fetch transcript in specified language
+    transcript = get_youtube_transcript(video_id, language_code)
     if transcript is None:
         error_message = "Failed to fetch YouTube transcript"
         print(error_message)
