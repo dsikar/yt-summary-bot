@@ -62,15 +62,19 @@ def get_youtube_transcript(video_id, language_code=None):
         print(f"Error fetching transcript: {e}")
         return None
 
-def request_claude_summary(transcript):
+def request_claude_summary(transcript, language_code=None):
     CLAUDE_API_KEY = os.getenv("ANTHROPIC_API_KEY")
     client = Anthropic(api_key=CLAUDE_API_KEY)
     
     try:
+        system_msg = "You are a YouTube transcript analyst."
+        if language_code:
+            system_msg += f" Generate your response in {language_code} language."
+            
         message = client.messages.create(
             model="claude-3-opus-20240229",
             max_tokens=4096,
-            system="You are a YouTube transcript analyst.",
+            system=system_msg,
             messages=[
                 {
                     "role": "user",
@@ -116,7 +120,7 @@ def main():
         sys.exit(1)
     
     # Request summary from Claude
-    summary = request_claude_summary(transcript)
+    summary = request_claude_summary(transcript, language_code)
     if summary:
         print(summary)
         save_output(video_id, summary)
