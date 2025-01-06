@@ -57,9 +57,29 @@ Note that due to rate limits, some models worked with truncated versions of the 
 
 1. Install pyenv if you haven't already:
    ```bash
-   curl https://pyenv.run | bash
+   git clone https://github.com/pyenv/pyenv.git ~/.pyenv
    ```
-
+1.1 Install virtualenv
+   ```bash
+   git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+   ```
+1.2 Add to ~/.bashrc
+   ```bash
+   export PYENV_ROOT="$HOME/.pyenv"
+   export PATH="$PYENV_ROOT/bin:$PATH"
+   
+   # Load pyenv automatically by appending
+   # the following to ~/.bashrc or ~/.zshrc:
+   if command -v pyenv 1>/dev/null 2>&1; then
+     eval "$(pyenv init -)"
+   fi
+   
+   eval "$(pyenv virtualenv-init -)"
+   ```
+1.3 Set the new configuration
+   ```bash
+   source ~/.bashrc
+   ```
 2. Create a Python virtual environment:
    ```bash
    pyenv install 3.9.5
