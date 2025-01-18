@@ -90,6 +90,26 @@ def request_grok_comparison(summaries):
         print(f"Request to Grok API failed: {e}")
         return None
 
+def request_deepseek_comparison(summaries):
+    DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+    client = OpenAI(
+        api_key=DEEPSEEK_API_KEY,
+        base_url="https://api.deepseek.com/v1"
+    )
+    
+    try:
+        completion = client.chat.completions.create(
+            model="deepseek-chat",
+            messages=[
+                {"role": "system", "content": "You are an analytical assistant comparing AI-generated summaries."},
+                {"role": "user", "content": format_comparison_prompt(summaries)},
+            ],
+        )
+        return completion.choices[0].message.content
+    except Exception as e:
+        print(f"Request to DeepSeek API failed: {e}")
+        return None
+
 def request_openai_comparison(summaries):
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     client = OpenAI(api_key=OPENAI_API_KEY)
@@ -138,7 +158,8 @@ def main():
         'claude': request_claude_comparison,
         'gemini': request_gemini_comparison,
         'grok': request_grok_comparison,
-        'openai': request_openai_comparison
+        'openai': request_openai_comparison,
+        'deepseek': request_deepseek_comparison
     }
     
     for model, compare_func in services.items():
