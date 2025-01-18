@@ -6,6 +6,7 @@ from datetime import datetime
 import glob
 from anthropic import Anthropic
 import google.generativeai as genai
+from googleapiclient.discovery import build
 from openai import OpenAI
 
 def read_markdown_files(video_id, source_lang=None, target_lang=None):
@@ -140,6 +141,22 @@ def save_comparison(video_id, model, content):
         header = f"# AI Summary Comparison by {model}\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\n---\n\n"
         f.write(header + content)
 
+def get_video_title(video_id):
+    """Get the video title using YouTube Data API"""
+    try:
+        youtube = build('youtube', 'v3', developerKey=os.getenv('GOOGLE_API_KEY'))
+        request = youtube.videos().list(
+            part='snippet',
+            id=video_id
+        )
+        response = request.execute()
+        
+        if response['items']:
+            return response['items'][0]['snippet']['title']
+    except Exception as e:
+        print(f"Error fetching video title: {e}")
+    return None
+
 def update_readme(video_id, timestamp):
     """Update the README.md with links to the latest analysis files"""
     readme_path = "summaries/README.md"
@@ -149,8 +166,14 @@ def update_readme(video_id, timestamp):
     summary_files = glob.glob(f"summaries/*_{video_id}.md")
     comparison_files = glob.glob(f"summaries/comparison_*_{video_id}.md")
     
+    # Get video title
+    video_title = get_video_title(video_id)
+    
     # Create the new entry
-    entry = f"\n## {timestamp}\n\n"
+    entry = f"\n## {timestamp}\n"
+    if video_title:
+        entry += f"[{video_title}](https://www.youtube.com/watch?v={video_id})\n"
+    entry += "\n"
     
     if transcript_file:
         entry += "### Transcript\n"
