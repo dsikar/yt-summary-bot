@@ -1,0 +1,3 @@
+2024-01-18
+1. Standard file names for summaries  -omit source and target languages
+2. Modify compare and contrast to search for standard filenames.
