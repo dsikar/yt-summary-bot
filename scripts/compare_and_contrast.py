@@ -1,6 +1,7 @@
 import sys
 import os
 import glob
+import argparse
 from datetime import datetime
 from anthropic import Anthropic
 import google.generativeai as genai
@@ -23,11 +24,6 @@ def read_markdown_files(video_id, source_lang=None, target_lang=None):
         if os.path.exists(filename):
             with open(filename, 'r', encoding='utf-8') as f:
                 summaries[filename] = f.read()
-    
-    for pattern in patterns:
-        if os.path.exists(pattern):
-            with open(pattern, 'r', encoding='utf-8') as f:
-                summaries[pattern] = f.read()
     
     return summaries
 
