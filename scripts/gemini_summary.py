@@ -89,8 +89,8 @@ def save_output(video_id, content, source_lang=None, target_lang=None, success=T
     filename = f"summaries/gemini_{video_id}"
     if source_lang:
         filename += f"_{source_lang}"
-    if target_lang and target_lang != source_lang:
-        filename += f"_to_{target_lang}"
+        if target_lang and target_lang != source_lang:
+            filename += f"_to_{target_lang}"
     filename += ".md"
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     

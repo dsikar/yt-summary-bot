@@ -13,15 +13,18 @@ def read_markdown_files(video_id, source_lang=None, target_lang=None):
     """Read all markdown summary files for a given video ID with language support"""
     summaries = {}
     
-    # Use glob to find all summary files for this video ID
-    pattern = f"summaries/*_{video_id}"
+    # First try to find files with language pattern
     if source_lang:
-        pattern += f"_{source_lang}"
-    if target_lang and target_lang != source_lang:
-        pattern += f"_to_{target_lang}"
-    pattern += ".md"
-    
-    files = glob.glob(pattern)
+        pattern = f"summaries/*_{video_id}_{source_lang}"
+        if target_lang and target_lang != source_lang:
+            pattern += f"_to_{target_lang}"
+        pattern += ".md"
+        files = glob.glob(pattern)
+    else:
+        # If no language specified or no files found with language pattern,
+        # look for default language files
+        pattern = f"summaries/*_{video_id}.md"
+        files = glob.glob(pattern)
     
     # Only include non-comparison files
     for filename in files:
