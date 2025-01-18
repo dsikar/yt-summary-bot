@@ -130,7 +130,7 @@ def request_openai_comparison(summaries):
 def save_comparison(video_id, model, content):
     """Save the comparison analysis to a markdown file"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    filename = f"comparison_{model}_{video_id}.md"
+    filename = f"summaries/comparison_{model}_{video_id}.md"
     
     with open(filename, 'w', encoding='utf-8') as f:
         header = f"# AI Summary Comparison by {model}\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\n---\n\n"

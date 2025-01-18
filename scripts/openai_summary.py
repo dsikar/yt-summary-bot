@@ -77,7 +77,7 @@ def request_openai_summary(transcript, source_lang=None, target_lang=None):
 
 def save_output(video_id, content, source_lang=None, target_lang=None, success=True):
     """Save the output to a markdown file"""
-    filename = f"openai_{video_id}"
+    filename = f"summaries/openai_{video_id}"
     if source_lang:
         filename += f"_{source_lang}"
     if target_lang and target_lang != source_lang:

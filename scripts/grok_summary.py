@@ -80,7 +80,7 @@ def request_grok_summary(transcript, source_lang=None, target_lang=None):
 
 def save_output(video_id, content, source_lang=None, target_lang=None, success=True):
     """Save the output to a markdown file"""
-    filename = f"grok_{video_id}"
+    filename = f"summaries/grok_{video_id}"
     if source_lang:
         filename += f"_{source_lang}"
     if target_lang and target_lang != source_lang:
