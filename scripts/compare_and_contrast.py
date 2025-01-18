@@ -16,7 +16,7 @@ def read_markdown_files(video_id, source_lang=None, target_lang=None):
     
     for base in base_patterns:
         # Build filename pattern with language codes
-        filename = f"{base}_{video_id}"
+        filename = f"summaries/{base}_{video_id}"
         if source_lang:
             filename += f"_{source_lang}"
         if target_lang and target_lang != source_lang:
