@@ -12,18 +12,20 @@ from openai import OpenAI
 def read_markdown_files(video_id, source_lang=None, target_lang=None):
     """Read all markdown summary files for a given video ID with language support"""
     summaries = {}
-    base_patterns = ['claude', 'gemini', 'grok', 'openai', 'deepseek']
     
-    for base in base_patterns:
-        # Build filename pattern with language codes
-        filename = f"summaries/{base}_{video_id}"
-        if source_lang:
-            filename += f"_{source_lang}"
-        if target_lang and target_lang != source_lang:
-            filename += f"_to_{target_lang}"
-        filename += ".md"
-        
-        if os.path.exists(filename):
+    # Use glob to find all summary files for this video ID
+    pattern = f"summaries/*_{video_id}"
+    if source_lang:
+        pattern += f"_{source_lang}"
+    if target_lang and target_lang != source_lang:
+        pattern += f"_to_{target_lang}"
+    pattern += ".md"
+    
+    files = glob.glob(pattern)
+    
+    # Only include non-comparison files
+    for filename in files:
+        if not os.path.basename(filename).startswith('comparison_'):
             with open(filename, 'r', encoding='utf-8') as f:
                 summaries[filename] = f.read()
     
