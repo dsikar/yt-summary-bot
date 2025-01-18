@@ -133,6 +133,9 @@ def save_comparison(video_id, model, content):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     filename = f"summaries/comparison_{model}_{video_id}.md"
     
+    # Ensure the summaries directory exists
+    os.makedirs("summaries", exist_ok=True)
+    
     with open(filename, 'w', encoding='utf-8') as f:
         header = f"# AI Summary Comparison by {model}\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\n---\n\n"
         f.write(header + content)
