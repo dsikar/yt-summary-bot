@@ -160,13 +160,15 @@ def update_readme(video_id, timestamp):
         entry += "### Summaries\n"
         for f in sorted(summary_files):
             if not f.startswith('comparison'):
-                entry += f"- [{f}]({f})\n"
+                basename = os.path.basename(f)
+                entry += f"- [{basename}]({basename})\n"
         entry += "\n"
     
     if comparison_files:
         entry += "### Comparisons\n"
         for f in sorted(comparison_files):
-            entry += f"- [{f}]({f})\n"
+            basename = os.path.basename(f)
+            entry += f"- [{basename}]({basename})\n"
         entry += "\n"
     
     # Append to README
