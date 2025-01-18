@@ -97,3 +97,26 @@
 - [comparison_grok_8ZHbEjRKfKs.md](comparison_grok_8ZHbEjRKfKs.md)
 - [comparison_openai_8ZHbEjRKfKs.md](comparison_openai_8ZHbEjRKfKs.md)
 
+
+## 2025-01-18-15-09-54
+[Origines du capitalisme 4/6 : Karl Marx avait raison ? Le capital fictif. (Doc Arte 2014 Ilan Ziv)](https://www.youtube.com/watch?v=aVbsx-A5lb8)
+
+### Transcript
+- [aVbsx-A5lb8_fr_to_en.txt](aVbsx-A5lb8_fr_to_en.txt)
+
+### Summaries
+- [claude_aVbsx-A5lb8.md](claude_aVbsx-A5lb8.md)
+- [comparison_claude_aVbsx-A5lb8.md](comparison_claude_aVbsx-A5lb8.md)
+- [comparison_deepseek_aVbsx-A5lb8.md](comparison_deepseek_aVbsx-A5lb8.md)
+- [comparison_gemini_aVbsx-A5lb8.md](comparison_gemini_aVbsx-A5lb8.md)
+- [comparison_grok_aVbsx-A5lb8.md](comparison_grok_aVbsx-A5lb8.md)
+- [comparison_openai_aVbsx-A5lb8.md](comparison_openai_aVbsx-A5lb8.md)
+- [gemini_aVbsx-A5lb8.md](gemini_aVbsx-A5lb8.md)
+
+### Comparisons
+- [comparison_claude_aVbsx-A5lb8.md](comparison_claude_aVbsx-A5lb8.md)
+- [comparison_deepseek_aVbsx-A5lb8.md](comparison_deepseek_aVbsx-A5lb8.md)
+- [comparison_gemini_aVbsx-A5lb8.md](comparison_gemini_aVbsx-A5lb8.md)
+- [comparison_grok_aVbsx-A5lb8.md](comparison_grok_aVbsx-A5lb8.md)
+- [comparison_openai_aVbsx-A5lb8.md](comparison_openai_aVbsx-A5lb8.md)
+
