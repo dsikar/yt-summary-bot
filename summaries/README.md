@@ -74,3 +74,26 @@
 - [comparison_grok_eafcL9wpzA0.md](comparison_grok_eafcL9wpzA0.md)
 - [comparison_openai_eafcL9wpzA0.md](comparison_openai_eafcL9wpzA0.md)
 
+
+## 2025-01-18-15-01-31
+[Arte   Capitalisme 3 6   Ricardo et Malthus, vous avez dit liberté](https://www.youtube.com/watch?v=8ZHbEjRKfKs)
+
+### Transcript
+- [8ZHbEjRKfKs_fr.txt](8ZHbEjRKfKs_fr.txt)
+
+### Summaries
+- [claude_8ZHbEjRKfKs.md](claude_8ZHbEjRKfKs.md)
+- [comparison_claude_8ZHbEjRKfKs.md](comparison_claude_8ZHbEjRKfKs.md)
+- [comparison_deepseek_8ZHbEjRKfKs.md](comparison_deepseek_8ZHbEjRKfKs.md)
+- [comparison_gemini_8ZHbEjRKfKs.md](comparison_gemini_8ZHbEjRKfKs.md)
+- [comparison_grok_8ZHbEjRKfKs.md](comparison_grok_8ZHbEjRKfKs.md)
+- [comparison_openai_8ZHbEjRKfKs.md](comparison_openai_8ZHbEjRKfKs.md)
+- [gemini_8ZHbEjRKfKs.md](gemini_8ZHbEjRKfKs.md)
+
+### Comparisons
+- [comparison_claude_8ZHbEjRKfKs.md](comparison_claude_8ZHbEjRKfKs.md)
+- [comparison_deepseek_8ZHbEjRKfKs.md](comparison_deepseek_8ZHbEjRKfKs.md)
+- [comparison_gemini_8ZHbEjRKfKs.md](comparison_gemini_8ZHbEjRKfKs.md)
+- [comparison_grok_8ZHbEjRKfKs.md](comparison_grok_8ZHbEjRKfKs.md)
+- [comparison_openai_8ZHbEjRKfKs.md](comparison_openai_8ZHbEjRKfKs.md)
+
