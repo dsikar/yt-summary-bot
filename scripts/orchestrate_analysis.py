@@ -25,6 +25,9 @@ def run_script(script_name, video_id, source_lang=None, target_lang=None):
             if target_lang:
                 cmd.extend(['--target-lang', target_lang])
         
+        # Don't pass language args to compare_and_contrast.py
+        if script_name == 'compare_and_contrast.py':
+            cmd = ['python', f'scripts/{script_name}', video_id]
         subprocess.run(cmd, check=True)
         print(f"✓ {script_name} completed successfully")
     except subprocess.CalledProcessError as e:

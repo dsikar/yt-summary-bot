@@ -6,15 +6,23 @@ from anthropic import Anthropic
 import google.generativeai as genai
 from openai import OpenAI
 
-def read_markdown_files(video_id):
-    """Read all markdown summary files for a given video ID"""
+def read_markdown_files(video_id, source_lang=None, target_lang=None):
+    """Read all markdown summary files for a given video ID with language support"""
     summaries = {}
-    patterns = [
-        f"claude_{video_id}.md",
-        f"gemini_{video_id}.md",
-        f"grok_{video_id}.md",
-        f"openai_{video_id}.md"
-    ]
+    base_patterns = ['claude', 'gemini', 'grok', 'openai', 'deepseek']
+    
+    for base in base_patterns:
+        # Build filename pattern with language codes
+        filename = f"{base}_{video_id}"
+        if source_lang:
+            filename += f"_{source_lang}"
+        if target_lang and target_lang != source_lang:
+            filename += f"_to_{target_lang}"
+        filename += ".md"
+        
+        if os.path.exists(filename):
+            with open(filename, 'r', encoding='utf-8') as f:
+                summaries[filename] = f.read()
     
     for pattern in patterns:
         if os.path.exists(pattern):
@@ -113,12 +121,17 @@ def save_comparison(video_id, model, content):
         f.write(header + content)
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python compare_and_contrast.py <video_id>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description='Compare AI-generated summaries')
+    parser.add_argument('video_id', help='YouTube video ID')
+    parser.add_argument('--source-lang', help='Source language code (e.g., en, es, fr)')
+    parser.add_argument('--target-lang', help='Target language code for translation')
+    args = parser.parse_args()
 
-    video_id = sys.argv[1]
-    summaries = read_markdown_files(video_id)
+    video_id = args.video_id
+    source_lang = args.source_lang
+    target_lang = args.target_lang or source_lang
+    
+    summaries = read_markdown_files(video_id, source_lang, target_lang)
     
     if not summaries:
         print("No summary files found for the given video ID")
