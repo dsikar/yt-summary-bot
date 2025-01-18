@@ -48,7 +48,8 @@ def main():
         'claude_summary.py',
         'gemini_summary.py',
         'grok_summary.py',
-        'openai_summary.py'
+        'openai_summary.py',
+        'deepseek_summary.py'
     ]
     
     # Run each summary script
