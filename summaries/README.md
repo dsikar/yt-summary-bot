@@ -51,3 +51,26 @@
 - [summaries/comparison_grok_G_DVMg8GPRY.md](summaries/comparison_grok_G_DVMg8GPRY.md)
 - [summaries/comparison_openai_G_DVMg8GPRY.md](summaries/comparison_openai_G_DVMg8GPRY.md)
 
+
+## 2025-01-18-14-52-47
+[Capitalisme 2/6 La richesse des nations: nouvel évangile? Documentaire Arte 2014](https://www.youtube.com/watch?v=eafcL9wpzA0)
+
+### Transcript
+- [eafcL9wpzA0_fr.txt](eafcL9wpzA0_fr.txt)
+
+### Summaries
+- [claude_eafcL9wpzA0.md](claude_eafcL9wpzA0.md)
+- [comparison_claude_eafcL9wpzA0.md](comparison_claude_eafcL9wpzA0.md)
+- [comparison_deepseek_eafcL9wpzA0.md](comparison_deepseek_eafcL9wpzA0.md)
+- [comparison_gemini_eafcL9wpzA0.md](comparison_gemini_eafcL9wpzA0.md)
+- [comparison_grok_eafcL9wpzA0.md](comparison_grok_eafcL9wpzA0.md)
+- [comparison_openai_eafcL9wpzA0.md](comparison_openai_eafcL9wpzA0.md)
+- [gemini_eafcL9wpzA0.md](gemini_eafcL9wpzA0.md)
+
+### Comparisons
+- [comparison_claude_eafcL9wpzA0.md](comparison_claude_eafcL9wpzA0.md)
+- [comparison_deepseek_eafcL9wpzA0.md](comparison_deepseek_eafcL9wpzA0.md)
+- [comparison_gemini_eafcL9wpzA0.md](comparison_gemini_eafcL9wpzA0.md)
+- [comparison_grok_eafcL9wpzA0.md](comparison_grok_eafcL9wpzA0.md)
+- [comparison_openai_eafcL9wpzA0.md](comparison_openai_eafcL9wpzA0.md)
+
