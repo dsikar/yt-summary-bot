@@ -3,6 +3,7 @@ import os
 import glob
 import argparse
 from datetime import datetime
+import glob
 from anthropic import Anthropic
 import google.generativeai as genai
 from openai import OpenAI
@@ -136,6 +137,39 @@ def save_comparison(video_id, model, content):
         header = f"# AI Summary Comparison by {model}\n\nVideo ID: {video_id}\nTimestamp: {timestamp}\n\n---\n\n"
         f.write(header + content)
 
+def update_readme(video_id, timestamp):
+    """Update the README.md with links to the latest analysis files"""
+    readme_path = "summaries/README.md"
+    
+    # Find all relevant files
+    transcript_file = glob.glob(f"{video_id}*.txt")
+    summary_files = glob.glob(f"summaries/*_{video_id}.md")
+    comparison_files = glob.glob(f"summaries/comparison_*_{video_id}.md")
+    
+    # Create the new entry
+    entry = f"\n## {timestamp}\n\n"
+    
+    if transcript_file:
+        entry += "### Transcript\n"
+        entry += f"- [{transcript_file[0]}]({transcript_file[0]})\n\n"
+    
+    if summary_files:
+        entry += "### Summaries\n"
+        for f in sorted(summary_files):
+            if not f.startswith('comparison'):
+                entry += f"- [{f}]({f})\n"
+        entry += "\n"
+    
+    if comparison_files:
+        entry += "### Comparisons\n"
+        for f in sorted(comparison_files):
+            entry += f"- [{f}]({f})\n"
+        entry += "\n"
+    
+    # Append to README
+    with open(readme_path, 'a', encoding='utf-8') as f:
+        f.write(entry)
+
 def main():
     parser = argparse.ArgumentParser(description='Compare AI-generated summaries')
     parser.add_argument('video_id', help='YouTube video ID')
@@ -170,6 +204,11 @@ def main():
             print(f"Saved {model}'s comparison analysis")
         else:
             print(f"Failed to get comparison from {model}")
+    
+    # Update README.md with links to all files
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    update_readme(video_id, timestamp)
+    print("\nUpdated summaries/README.md with links to analysis files")
 
 if __name__ == "__main__":
     main()
